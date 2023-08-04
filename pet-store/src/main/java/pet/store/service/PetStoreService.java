@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import pet.store.controller.model.PetStoreData;
 import pet.store.dao.PetStoreDao;
 import pet.store.entity.PetStore;
