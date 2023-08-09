@@ -30,6 +30,13 @@ public class GlobalErrorHandler {
 		private String uri;
 	}
 	
+	@ExceptionHandler(IllegalStateException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ExceptionMessage handleIllegalArgumentException(IllegalArgumentException ex,
+			WebRequest webRequest) {
+		return buildExceptionMessage(ex, HttpStatus.BAD_REQUEST, webRequest, LogStatus.MESSAGE_ONLY);
+	}
+	
 	@ExceptionHandler(NoSuchElementException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ExceptionMessage handleNoSuchElementException(NoSuchElementException ex, WebRequest webRequest) {

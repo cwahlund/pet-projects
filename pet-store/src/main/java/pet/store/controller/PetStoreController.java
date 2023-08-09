@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreEmployee;
 import pet.store.service.PetStoreService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/pet_store")
 @Slf4j
 public class PetStoreController {
 	@Autowired
@@ -33,5 +34,12 @@ public class PetStoreController {
 		petStoreData.setPetStoreId(petStoreId);
 		log.info("Updating pet store {}", petStoreData);
 		return petStoreService.savePetStore(petStoreData);
+	}
+	
+	@PostMapping("/{petStoreId}/employee")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public PetStoreEmployee insertEmployee(@PathVariable Long petStoreId, @RequestBody PetStoreEmployee employeeData) {
+		log.info("Creating employee {} for store with ID={}", employeeData, petStoreId);
+		return petStoreService.saveEmployee(petStoreId, employeeData);
 	}
 }
