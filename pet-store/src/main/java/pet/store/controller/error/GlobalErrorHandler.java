@@ -1,5 +1,6 @@
 package pet.store.controller.error;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
@@ -28,6 +29,13 @@ public class GlobalErrorHandler {
 		private int statusCode;
 		private String timestamp;
 		private String uri;
+	}
+	
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ExceptionMessage handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex,
+			WebRequest webRequest) {
+		return buildExceptionMessage(ex, HttpStatus.BAD_REQUEST, webRequest, LogStatus.MESSAGE_ONLY);
 	}
 	
 	@ExceptionHandler(IllegalStateException.class)

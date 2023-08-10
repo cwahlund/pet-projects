@@ -1,5 +1,7 @@
 package pet.store.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -124,7 +126,7 @@ public class PetStoreService {
 		copyCustomerFields(customer, petStoreCustomer);
 		customer.getPetStores().add(petStore);
 		
-		// add employee to pet store
+		// add customer to pet store
 		petStore.getCustomers().add(customer);
 		
 		return new PetStoreCustomer(customerDao.save(customer));
@@ -169,5 +171,29 @@ public class PetStoreService {
 		customer.setCustomerFirstName(petStoreCustomer.getCustomerFirstName());
 		customer.setCustomerLastName(petStoreCustomer.getCustomerLastName());
 		customer.setCustomerEmail(petStoreCustomer.getCustomerEmail());
+	}
+
+	@Transactional(readOnly = true)
+	public List<PetStoreData> retrieveAllPetStores() {
+		List<PetStore> petStores = petStoreDao.findAll();
+		List<PetStoreData> petStoreDataList = new LinkedList<>();
+		
+		for(PetStore petStore : petStores) {
+			PetStoreData psd = new PetStoreData(petStore);
+			
+			psd.getCustomers().clear();
+			psd.getEmployees().clear();
+			
+			petStoreDataList.add(psd);
+		}
+		
+		return petStoreDataList;
+	}
+
+	@Transactional(readOnly = true)
+	public PetStoreData retrievePetStoreById(Long petStoreId) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		
+		return new PetStoreData(petStore);
 	}
 }
