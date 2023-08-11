@@ -58,7 +58,7 @@ public class ParkController {
 	
 	@DeleteMapping("/contributor")
 	public void deleteAllContributors() {
-		log.info("Attempting to delete all contribuors");
+		log.info("Attempting to delete all contributors");
 		throw new UnsupportedOperationException("Deleting all contributors is not allowed.");
 	}
 	
