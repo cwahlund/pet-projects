@@ -149,19 +149,9 @@ public class PetStoreService {
 				.orElseThrow(() -> new NoSuchElementException(
 						"Customer with ID=" + customerId + " does not exist."));
 	
-		// checking for pet store ID match with a pet store for customer		
-		boolean match = false;
-		
-		for(PetStore petStore : customer.getPetStores()) {
-			if(petStore.getPetStoreId() == petStoreId) {
-				match = true;
-			}
-		}
-		
-		if(!match) {
-			throw new IllegalArgumentException("Customer with ID=" + customerId + 
-					" does not exist at pet store ID=" + petStoreId);
-		}
+		// Checking for pet store ID match with a pet store for customer should not throw an exception,
+		// if the pet store ID exists, but is not a part of the customer data
+		// it simply means that the customer should be added to the pet store via the join table.
 		
 		return customer;
 	}
