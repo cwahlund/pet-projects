@@ -98,6 +98,7 @@ public class LocationData {
 		public Dog toDog() {
 			Dog dog = new Dog();
 			
+			dog.setName(name);
 			dog.setDogId(dogId);
 			dog.setAge(age);
 			dog.setColor(color);
