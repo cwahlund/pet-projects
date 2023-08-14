@@ -55,4 +55,8 @@ public class RescueServiceTestSupport {
 		clone.setLocationId(null);
 		return rescueController.createLocation(clone);
 	}
+	
+	protected LocationData retrieveLocation(Long locationId) {
+		return rescueController.retrieveLocation(locationId);
+	}
 }
